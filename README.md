@@ -12,3 +12,13 @@ The main objective of this project is to manage the details of the students, boo
 2). Edit their profile <br>
 3). Can change password <br>
 4). View the issued book by  <br>
+
+
+### Overview:-
+
+#### 1).Planning and design
+Identify the requirements for the system, including user roles, functionalities, and features.
+Define the database schema for the system, including tables for books, members, loans, reservations, etc.
+Determine the relationships between the tables and create foreign key constraints.
+Decide on the API endpoints needed for the frontend to interact with the backend.
+Design the user interface and create mockups of the screens for the frontend
