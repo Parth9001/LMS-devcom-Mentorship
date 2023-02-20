@@ -16,9 +16,24 @@ The main objective of this project is to manage the details of the students, boo
 
 ### Overview:-
 
-#### 1).Planning and design
-Identify the requirements for the system, including user roles, functionalities, and features.
-Define the database schema for the system, including tables for books, members, loans, reservations, etc.
-Determine the relationships between the tables and create foreign key constraints.
-Decide on the API endpoints needed for the frontend to interact with the backend.
-Design the user interface and create mockups of the screens for the frontend
+#### 1). Planning and design:-<br>
+(i) Identify the requirements for the system, including user roles, functionalities, and features.<br>
+(ii) Define the database schema for the system, including tables for books, members, loans, reservations, etc.<br>
+(iii) Determine the relationships between the tables and create foreign key constraints.<br>
+(iv) Decide on the API endpoints needed for the frontend to interact with the backend.<br>
+(v) Design the user interface and create mockups of the screens for the frontend<br>
+
+#### 2). Setting up the Django Backend:<br>
+(i) Create a new Django project and app for the library management system.<br>
+(ii) Define the database schema by creating Django models for each table in the database.<br>
+(iii) Implement the views and serializers needed for each API endpoint.<br>
+(iv) Create URL patterns for the API endpoints.<br>
+(v) Implement authentication and authorization for the API using Django's built-in authentication system <br>
+(vi) Implement unit tests for the backend.
+
+#### 3). Implementing the Angular Frontend:<br>
+(i) Create a new Angular project and app for the library management system.<br>
+(ii) Design and implement the user interface by creating components and services.<br>
+(iii) Implement the Angular services needed to interact with the backend API endpoints using the HttpClient module.<br>
+(iv) Implement authentication and authorization in the frontend by creating a login form and using Angular's guards to restrict access to certain pages.<br>
+(v) Create unit tests for the frontend.<br>
