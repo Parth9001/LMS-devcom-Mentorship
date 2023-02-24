@@ -17,7 +17,7 @@ The main objective of this project is to manage the details of the students, boo
 ```      
 **HEADERS** : Authorization : "Token *Token*"<br>
 #### 2). View the whole list of books and delete any book <br>
-`GET` or `PUT` or `DELETE` [http://localhost/port/api/book/{book-slug}/]<br>
+`GET` or `PUT` or `DELETE` http://localhost/port/api/book/{book-slug}/ <br>
 **BODY PARAMS**(required while method = `PUT`) : <br>
 ```python 
    {
@@ -35,16 +35,16 @@ The main objective of this project is to manage the details of the students, boo
 #### 3). View the whole list of students and delete any student <br>
 
 **Viewing the whole lists of students** <br>
-`GET`  [http://localhost/port/api/student/]<br>
+`GET`  http://localhost/port/api/student/<br>
 **HEADERS** : Authorization : "Token *Token*"<br>
 
 **Deleting Any Student**<br>
-`DELETE`  [http://localhost/port/api/student/{student-slug}/]<br>
+`DELETE`   http://localhost/port/api/student/{student-slug}/<br>
 **HEADERS** : Authorization : "Token *Token*"<br>
 
 
 #### 4). Issue a book to a student <br>
-`PUT`  [http://localhost/port/api/book/{book-slug}/]<br>
+`PUT`  http://localhost/port/api/book/{book-slug}/<br>
 **BODY PARAMS** : <br>
         {"issued_to" : StudentId}
         <br>
@@ -52,17 +52,17 @@ The main objective of this project is to manage the details of the students, boo
 
 
 #### 5). View all the issued books <br>
-`GET`  [http://localhost:port/api/issued-books/]<br>
+`GET`  http://localhost:port/api/issued-books/<br>
 **HEADERS** : Authorization : "Token *Token*"<br>
 
 ### For students <br>
 #### 1). A student can see his/her profile <br>
 
-`GET`  [http://localhost/port/api/student/]<br>
+`GET`  http://localhost/port/api/student/<br>
 **HEADERS** : Authorization : "Token *Token*"<br>
 
 #### 2). Edit their profile <br>
-`PUT` or `DELETE` [http://localhost/port/api/student/{student-slug}/]<br>
+`PUT` or `DELETE` http://localhost/port/api/student/{student-slug}/<br>
 **HEADERS** : Authorization : "Token *Token*"<br>
 **BODY PARAMS** : 
  ```python
