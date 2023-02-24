@@ -3,7 +3,7 @@ The main objective of this project is to manage the details of the students, boo
 
 ### For admin <br>
 #### 1). Admin can add new books <br>
-`POST` [http://localhost/port/api/book/]<br>
+`POST`  http://localhost/port/api/book/<br>
 **BODY PARAMS** : <br>
 ```python  
     {
