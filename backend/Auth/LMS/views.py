@@ -182,4 +182,12 @@ def author_details(request, slug):
 
     elif (request.method =='PUT' or request.method =='DELETE') and not request.user.is_superuser:
         return Response(data={"data":"Access Forbidden"}, status=HTTP_403_FORBIDDEN)
-    
+
+
+@api_view(['GET'])
+def issued_book_list_display(request):
+    if request.method == 'GET' and request.user.is_superuser:
+        books = Book.objects.filter(availability=False)
+        serializer = AdminBookSerializer(books, many=True)
+        return Response(serializer.data)
+    return Response(data={"data":"Access Forbidden"}, status=HTTP_403_FORBIDDEN)
