@@ -72,7 +72,7 @@ def student_details(request, slug):
         return Response(serializer.data)
     
     elif request.method=='PUT' and request.user==student:
-        serializer = StudentSerializer(data=request.data)
+        serializer = StudentSerializer(student, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
