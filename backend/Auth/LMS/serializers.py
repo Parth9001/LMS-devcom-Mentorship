@@ -9,7 +9,7 @@ class BookSerializer(serializers.ModelSerializer):
     thumb_img = serializers.ImageField(required = False, allow_null = True)
     class Meta:
         model = Book
-        fields = ('id', 'genre', 'thumb_img', 'title', 'slug', 'availability', 'author')
+        fields = ('id', 'genre', 'thumb_img', 'title', 'slug', 'availability', 'author', 'desc')
 
 class AdminBookSerializer(serializers.ModelSerializer):
     genre = serializers.PrimaryKeyRelatedField(queryset= Genre.objects.all(), many=True,required = False)

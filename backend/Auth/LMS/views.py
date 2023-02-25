@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from LMS.models import Book, Genre, Author
 from LMS.serializers import BookSerializer, GenreSerializer, AuthorSerializer, AdminBookSerializer
-
+from django.db.models import Q
 
 
     
@@ -26,7 +26,11 @@ If the logged in user is a superuser then it also gives options to POST (create)
 @permission_classes((AllowAny,))
 def book_list_display(request):
     if request.method == 'GET':
-        books = Book.objects.all()
+        query = request.GET.get('q')
+        if query:
+            books = Book.objects.filter(Q(title__icontains = query) | Q(desc__icontains = query))
+        else:                                  
+            books = Book.objects.all()
         if  request.user.is_superuser:
             serializer = AdminBookSerializer(books, many=True)
             return Response(serializer.data)
@@ -49,7 +53,11 @@ def book_list_display(request):
 @permission_classes((AllowAny,))
 def author_list_display(request):
     if request.method == 'GET':
-        authors = Author.objects.all()
+        query = request.GET.get('q')
+        if query:
+            authors = Author.objects.filter(Q(name__icontains = query) | Q(desc__icontains = query))
+        else:
+            authors = Author.objects.all()
         serializer = AuthorSerializer(authors, many=True)
         return Response(serializer.data)
     elif request.method =='POST' and request.user.is_superuser:
@@ -67,7 +75,11 @@ def author_list_display(request):
 @permission_classes((AllowAny,))
 def genre_list_display(request):
     if request.method == 'GET':
-        genre = Genre.objects.all()
+        query = request.GET.get('q')
+        if query:
+            genre = Genre.objects.filter(Q(name__icontains = query) | Q(desc__icontains = query))
+        else:
+            genre = Genre.objects.all()
         serializer = GenreSerializer(genre, many=True)
         return Response(serializer.data)
     elif request.method =='POST' and request.user.is_superuser:
