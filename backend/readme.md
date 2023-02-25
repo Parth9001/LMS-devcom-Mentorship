@@ -3,8 +3,8 @@ The main objective of this project is to manage the details of the students, boo
 
 ### For admin <br>
 #### 1). Admin can add new books <br>
-`POST`  http://localhost/port/api/book/<br>
-**BODY PARAMS** : <br>
+ - `POST`  http://localhost/port/api/book/<br>
+ - **BODY PARAMS** : <br>
 ```python  
     {
          "title" : title of the book,
@@ -15,56 +15,60 @@ The main objective of this project is to manage the details of the students, boo
 
         }
 ```      
-**HEADERS** : Authorization : "Token *Token*"<br>
+ - **HEADERS** : Authorization : "Token *Token*"<br>
 #### 2). View the whole list of books and delete any book <br>
-`GET` or `PUT` or `DELETE` http://localhost/port/api/book/{book-slug}/ <br>
-**BODY PARAMS**(required while method = `PUT`) : <br>
+ - `GET` http://localhost:port/api/books/ - To get all books <br>
+  __To get, edit or delete a particular book:__
+ - `GET` or `PUT` or `DELETE` http://localhost:port/api/books/{book-slug}/ <br> 
+ - __BODY PARAMS__ (required while method = `PUT` to edit the book data) : <br>
 ```python 
    {
-        "title" : title for the book
-         "desc" : description for the book
-         "thumb_img" : Thumbnail Image File
-         "author" : AuthorId
-         "genre" : [ GenreIds ]
-        "issued_to" : StudentId
+        "title" : title for the book,
+         "desc" : description for the book,
+         "thumb_img" : Thumbnail Image File,
+         "author" : AuthorId,
+         "genre" : [ GenreIds ],
+        "issued_to" : StudentId,
         } 
 ```
 
-**HEADERS**(required when method is `PUT` or `DELETE`) : Authorization : "Token *Token*"<br>
+ - **HEADERS**(required when method is `PUT` or `DELETE`) : Authorization : "Token *Token*"<br>
 
 #### 3). View the whole list of students and delete any student <br>
 
-**Viewing the whole lists of students** <br>
-`GET`  http://localhost/port/api/student/<br>
-**HEADERS** : Authorization : "Token *Token*"<br>
+1. **Viewing the whole lists of students** <br>
+ - `GET`  http://localhost:port/api/student/<br>
+ - **HEADERS** : Authorization : "Token *Token*"<br>
 
-**Deleting Any Student**<br>
-`DELETE`   http://localhost/port/api/student/{student-slug}/<br>
-**HEADERS** : Authorization : "Token *Token*"<br>
+2. **Deleting Any Student**<br>
+ - `DELETE`   http://localhost:port/api/student/{student-slug}/<br>
+ - **HEADERS** : Authorization : "Token *Token*"<br>
 
 
 #### 4). Issue a book to a student <br>
-`PUT`  http://localhost/port/api/book/{book-slug}/<br>
-**BODY PARAMS** : <br>
-        {"issued_to" : StudentId}
-        <br>
-**HEADERS**: Authorization : "Token *Token*"<br>
+ - `PUT`  http://localhost:port/api/book/{book-slug}/<br>
+ - **BODY PARAMS** : <br>
+ ```python 
+ {"issued_to" : StudentId} 
+ ```
+  
+ - **HEADERS**: Authorization : "Token *Token*"<br>
 
 
 #### 5). View all the issued books <br>
-`GET`  http://localhost:port/api/issued-books/<br>
-**HEADERS** : Authorization : "Token *Token*"<br>
+ - `GET`  http://localhost:port/api/issued-books/<br>
+ - **HEADERS** : Authorization : "Token *Token*"<br>
 
 ### For students <br>
 #### 1). A student can see his/her profile <br>
 
-`GET`  http://localhost/port/api/student/<br>
-**HEADERS** : Authorization : "Token *Token*"<br>
+ - `GET`  http://localhost/port/api/student/<br>
+ - **HEADERS** : Authorization : "Token *Token*"<br>
 
 #### 2). Edit their profile <br>
-`PUT` or `DELETE` http://localhost/port/api/student/{student-slug}/<br>
-**HEADERS** : Authorization : "Token *Token*"<br>
-**BODY PARAMS** : 
+ - `PUT` or `DELETE` http://localhost:port/api/student/{student-slug}/<br>
+ - **HEADERS** : Authorization : "Token *Token*"<br>
+ - **BODY PARAMS** : 
  ```python
         {
             "email": "email",
@@ -75,6 +79,57 @@ The main objective of this project is to manage the details of the students, boo
 #### 3). Can change password <br>
 #### 4). View the issued book by  <br>
 
+*** 
+### Accessing Books, Authors, Genres( authentication not required)
+1. Get Book <br>
+ - `GET` http://localhost:port/api/books/ - To get all books <br>
+ - `GET` http://localhost:port/api/books/{book-slug}/ - To get a particular book <br>
+ - `GET` http://localhost:port/api/books/?q={query} - To search books <br>
+ 
+2. Get Genre <br>
+ - `GET` http://localhost:port/api/genres/] - To get all genres <br>
+ - `GET` http://localhost:port/api/books/{genre-slug}/ - To get a particular book <br>
+ - `GET` http://localhost:port/api/books/?q={query} - To search genres <br>
+ <br>
+ 
+3. Get Author 
+ - `GET` http://localhost:port/api/authors/ - To get all books <br>
+ - `GET` http://localhost:port/api/authors/{author-slug}/ - To get a particular author <br>
+ - `GET` http://localhost:port/api/authors/?q={query} - To search authors <br>
+ <br>
+
+<br>
+<br>
+
+### Login and SignUp
+#### SignUp
+ - `POST` http://localhost:port/auth/signup/  <br>
+ - **BODY PARAMS** :
+ ```python
+ {
+    "password": "",
+    "password2": "",
+    "email": "",
+    "name": "",
+    "image": ImageFile
+}
+```
+#### Login
+ - `POST` http://localhost:port/auth/login/ <br>
+ - **BODY PARAMS**
+ ```python
+ {
+"email": "",
+"password":""
+}
+```
+- Response(if correct credentials are provided)
+```python
+{
+    "token": "TOKEN" # This token is used to authenticate the user and give access to other views.
+}
+
+```
 
 ## Overview:-
 
