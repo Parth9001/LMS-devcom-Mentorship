@@ -59,6 +59,7 @@ export class LoginComponent {
         console.log(err);
       },
     });
+    console.log(login.email);
   }
 
   getEmailErrors() {

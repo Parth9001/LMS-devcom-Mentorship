@@ -58,9 +58,9 @@ export class ManageBooksComponent {
   }
 
   deleteBook() {
-    let id: number = parseInt(this.deleteBookForm.value);
+    let slug : string = (this.deleteBookForm.value);
 
-    this.api.deleteBook(id).subscribe({
+    this.api.deleteBook(slug).subscribe({
       next: (res: any) => {
         if (res === 'success') {
           this.delMsg = 'Book Deleted';

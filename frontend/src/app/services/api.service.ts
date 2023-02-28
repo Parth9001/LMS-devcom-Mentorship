@@ -1,5 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Params } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 import { Book, Category, Order, User, UserType } from '../models/models';
@@ -9,23 +10,33 @@ import { Book, Category, Order, User, UserType } from '../models/models';
 })
 export class ApiService {
   baseUrl = 'http://127.0.0.1:8000/auth/';
+  baseURL2 = "http://127.0.0.1:8000/api/"
   constructor(private http: HttpClient, private jwt: JwtHelperService) {}
 
   createAccount(user: User) {
-    return this.http.post(this.baseUrl + 'CreateAccount', user, {
+    return this.http.post(this.baseUrl + 'signup/', user, {
       responseType: 'text',
     });
   }
 
   login(login: any) {
     let params = new HttpParams()
-    .append('email', login.email)
-    .append('password', login.password);
-    return this.http.get(this.baseUrl + 'Login', {
+    .append("email", login.email)
+    .append("password", login.password);
+    let headers = new HttpHeaders();
+headers= headers.append('content-type', 'application/json');
+
+return this.http.post(this.baseUrl + 'login/', {
       params: params,
-      responseType: 'text',
-    });
-  }
+      responseType: 'text'}, 
+      {headers : headers}
+      )
+    //   function f(param) {
+    //     console.log(param);
+    // }
+    
+    // alert( String(f) );
+ }
 
   saveToken(token: string) {
     localStorage.setItem('access_token', token);
@@ -59,7 +70,7 @@ export class ApiService {
   }
 
   getAllBooks() {
-    return this.http.get<Book[]>(this.baseUrl + 'GetAllBooks');
+    return this.http.get<Book[]>(this.baseURL2 + 'books/');
   }
 
   orderBook(userId: number, bookId: number) {
@@ -83,7 +94,7 @@ export class ApiService {
   }
 
   getAllUsers() {
-    return this.http.get<User[]>(this.baseUrl + 'GetAllUsers').pipe(
+    return this.http.get<User[]>(this.baseURL2 + 'student/').pipe(
       map((users) =>
         users.map((user) => {
           let temp: User = user;
@@ -119,7 +130,7 @@ export class ApiService {
   }
 
   getCategories() {
-    return this.http.get<Category[]>(this.baseUrl + 'GetAllCategories');
+    return this.http.get<Category[]>(this.baseURL2 + 'genres/');
   }
 
   insertBook(book: any) {
@@ -128,8 +139,8 @@ export class ApiService {
     });
   }
 
-  deleteBook(id: number) {
-    return this.http.delete(this.baseUrl + 'DeleteBook/' + id, {
+  deleteBook(slug : string) {
+    return this.http.delete(this.baseURL2 + 'books/' + slug, {
       responseType: 'text',
     });
   }
