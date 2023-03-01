@@ -24,17 +24,15 @@ export interface User {
 export interface Book {
   id: number;
   title: string;
-  category: string;
-  subCategory: string;
+  genre: string;
   price: number;
   available: boolean;
   count?: number;
   author: string;
 }
 
-export interface CategoryBooks {
-  category: string;
-  subCategory: string;
+export interface GenreBooks {
+  genre: string;
   books: Book[];
 }
 
@@ -48,7 +46,7 @@ export interface Order {
   returned: boolean;
 }
 
-export interface Category {
+export interface Genre {
   name: string;
-  children?: Category[];
+  children?: Genre[];
 }

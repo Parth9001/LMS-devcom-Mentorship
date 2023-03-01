@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Book, CategoryBooks } from '../models/models';
+import { Book, GenreBooks, Genre } from '../models/models';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ApiService } from '../services/api.service';
 })
 export class LibraryComponent implements OnInit {
   availableBooks: Book[] = [];
-  booksToDisplay: CategoryBooks[] = [];
+  booksToDisplay: GenreBooks[] = [];
   displayedColumns: string[] = [
     'id',
     'title',
@@ -37,26 +37,26 @@ export class LibraryComponent implements OnInit {
     this.booksToDisplay = [];
     for (let book of this.availableBooks) {
       let exist = false;
-      for (let categoryBooks of this.booksToDisplay) {
+      for (let genreBooks of this.booksToDisplay) {
         if (
-          book.category === categoryBooks.category &&
-          book.subCategory === categoryBooks.subCategory
+          book.genre === genreBooks.genre //&&
+          // book.subgenre === genreBooks.subgenre
         )
           exist = true;
       }
 
       if (exist) {
-        for (let categoryBooks of this.booksToDisplay) {
+        for (let genreBooks of this.booksToDisplay) {
           if (
-            book.category === categoryBooks.category &&
-            book.subCategory === categoryBooks.subCategory
+            book.genre === genreBooks.genre //&&
+            // book.subgenre === genreBooks.subgenre
           )
-            categoryBooks.books.push(book);
+            genreBooks.books.push(book);
         }
       } else {
         this.booksToDisplay.push({
-          category: book.category,
-          subCategory: book.subCategory,
+          genre: book.genre,
+          // subgenre: book.subgenre,
           books: [book],
         });
       }
@@ -71,13 +71,13 @@ export class LibraryComponent implements OnInit {
     value = value.toLowerCase();
     this.updateList();
     if (value.length > 0) {
-      this.booksToDisplay = this.booksToDisplay.filter((categoryBooks) => {
-        categoryBooks.books = categoryBooks.books.filter(
+      this.booksToDisplay = this.booksToDisplay.filter((genreBooks) => {
+        genreBooks.books = genreBooks.books.filter(
           (book) =>
             book.title.toLowerCase().includes(value) ||
             book.author.toLowerCase().includes(value)
         );
-        return categoryBooks.books.length > 0;
+        return genreBooks.books.length > 0;
       });
     }
   }

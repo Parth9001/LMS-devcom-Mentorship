@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
-import { Book, Category, Order, User, UserType } from '../models/models';
+import { Book, Genre, Order, User, UserType } from '../models/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
+  
   baseUrl = 'http://127.0.0.1:8000/auth/';
   baseURL2 = "http://127.0.0.1:8000/api/"
   constructor(private http: HttpClient, private jwt: JwtHelperService) {}
@@ -129,8 +130,8 @@ return this.http.post(this.baseUrl + 'login/', {
     });
   }
 
-  getCategories() {
-    return this.http.get<Category[]>(this.baseURL2 + 'genres/');
+  getGenre() {
+    return this.http.get<Genre[]>(this.baseURL2 + 'genres/');
   }
 
   insertBook(book: any) {
@@ -145,10 +146,17 @@ return this.http.post(this.baseUrl + 'login/', {
     });
   }
 
-  insertCategory(category: string, subcategory: string) {
+  insertGenre(genre: string,) {
     return this.http.post(
-      this.baseUrl + 'InsertCategory',
-      { category: category, subCategory: subcategory },
+      this.baseURL2 + 'InsertGenre',
+      { genre : genre},
+      { responseType: 'text' }
+    );
+  }
+  insertCategory(category: string,) {
+    return this.http.post(
+      this.baseURL2 + 'InsertCategory',
+      { category : category},
       { responseType: 'text' }
     );
   }

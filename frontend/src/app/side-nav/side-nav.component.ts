@@ -21,8 +21,16 @@ export class SideNavComponent {
       link: 'books/maintenance',
     },
     {
+      title: 'view genre',
+      link:'genre',
+    },
+    {
       title: 'manage categories',
       link: 'books/categories',
+    },
+    {
+      title: 'manage genre',
+      link: 'manage-genre',
     },
     {
       title: 'return book',
