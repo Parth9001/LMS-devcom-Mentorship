@@ -3,6 +3,7 @@ from rest_framework.permissions import AllowAny
 from LMS.models import Book, Genre, Author, Order
 from LMS.serializers import BookSerializer, GenreSerializer, AuthorSerializer, AdminBookSerializer, OrderSerializer
 from django.db.models import Q
+import datetime
 
 
     
@@ -212,3 +213,19 @@ def orders_list(request):
     serializer = OrderSerializer(orders,many =True)
     return Response(serializer.data)
 
+
+@api_view(['GET'])
+@permission_classes((AllowAny,))
+def trending_books(request):
+    ordered_books = Order.objects.all()
+    
+    orderss = [
+        {'book_id': 123, 'order_date': datetime.datetime(2022, 1, 1), 'title':'Life of Pi'}
+    ]
+    for orders in ordered_books:
+        book_id = orders.book.id
+        title = str(orders.book)
+        order_date = orders.order_date
+        orderss.append({'book_id': book_id,'title':title, 'order_date':order_date})
+    return Response(data=orderss)
+    

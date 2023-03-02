@@ -17,7 +17,7 @@ export class OrdersComponent implements OnInit {
     'bookid',
     'book',
     'date',
-    'returned',
+    'status',
   ];
 
   constructor(private api: ApiService) {}
@@ -37,11 +37,11 @@ export class OrdersComponent implements OnInit {
       this.ordersToDisplay = this.listOfOrders.filter((value) => value);
     } else if (value === 'pen') {
       this.ordersToDisplay = this.listOfOrders.filter(
-        (value) => value.returned == false
+        (value) => value.status == "Ordered"
       );
     } else {
       this.ordersToDisplay = this.listOfOrders.filter(
-        (value) => value.returned
+        (value) => value.status == "Returned"
       );
     }
   }

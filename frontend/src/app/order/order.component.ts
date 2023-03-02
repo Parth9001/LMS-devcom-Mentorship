@@ -9,7 +9,7 @@ import { ApiService } from '../services/api.service';
 })
 export class OrderComponent implements OnInit {
   listOfOrders: Order[] = [];
-  columns: string[] = ['id', 'name', 'bookid', 'book', 'date', 'returned'];
+  columns: string[] = ['id', 'name', 'bookid', 'book', 'date', 'status'];
 
   constructor(private api: ApiService) {}
 

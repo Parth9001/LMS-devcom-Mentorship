@@ -43,7 +43,7 @@ export interface Order {
   bookid: number;
   booktitle: string;
   orderedon: string;
-  returned: boolean;
+  status: string;
 }
 
 export interface Genre {
