@@ -38,6 +38,18 @@ class Book(models.Model):
         return self.title
     
 
+class Order(models.Model):
+    status = models.CharField(name="status", max_length=255)
+    book = models.ForeignKey(Book, name="book", on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, name="student", on_delete=models.CASCADE)
+    order_date = models.DateTimeField(blank=True, null=True, name="order_date")
+    return_date = models.DateTimeField(blank=True, null=True, name="return_date")
+
+    def __str__(self) :
+        return self.book.title
+
+    
+
 
 
 

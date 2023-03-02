@@ -21,15 +21,18 @@ export class ApiService {
   }
 
   login(login: any) {
-    let params = new HttpParams()
-    .append("email", login.email)
-    .append("password", login.password);
+    // let params = new HttpParams()
+    // .append("email", login.email)
+    // .append("password", login.password);
+    let params = {
+      email:login.email,
+      password:login.password
+    };
     let headers = new HttpHeaders();
 headers= headers.append('content-type', 'application/json');
 
-return this.http.post(this.baseUrl + 'login/', {
-      params: params,
-      responseType: 'text'}, 
+return this.http.post(this.baseUrl + 'login/', params,
+      
       {headers : headers}
       )
     //   function f(param) {
@@ -81,11 +84,11 @@ return this.http.post(this.baseUrl + 'login/', {
   }
 
   getOrdersOfUser(userid: number) {
-    return this.http.get<Order[]>(this.baseUrl + 'GetOrders/' + userid);
+    return this.http.get<Order[]>(this.baseURL2 + 'orders/' + userid);
   }
 
   getAllOrders() {
-    return this.http.get<Order[]>(this.baseUrl + 'GetAllOrders');
+    return this.http.get<Order[]>(this.baseURL2 + 'orders/');
   }
 
   returnBook(bookId: string, userId: string) {

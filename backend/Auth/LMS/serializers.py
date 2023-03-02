@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Genre, Author
+from .models import Book, Genre, Author, Order
 from authentication.models import Student
 
 '''
@@ -21,7 +21,12 @@ class BookSerializer(serializers.ModelSerializer):
             rep['author'] = instance.author.name
         else:
             rep['author']= 'None'
+        if instance.availability:
+            rep['available'] = 1
+        else:
+            rep['available'] = None
         return rep
+        
         
     
     
@@ -45,3 +50,26 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = '__all__'
+
+class OrderSerializer(serializers.ModelSerializer):
+    book = serializers.PrimaryKeyRelatedField(queryset= Book.objects.all(),required = False)
+    student = serializers.PrimaryKeyRelatedField(queryset= Student.objects.all(), required = False, allow_null=True)
+    
+    class Meta:
+        model = Order
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        rep = super(OrderSerializer, self).to_representation(instance)
+        if instance.book is not None:
+            rep['book'] = instance.book.title
+            rep['bookId'] = instance.book.id
+        else:
+            rep['book']= 'None'
+        if instance.student is not None:
+            rep['student'] = instance.student.name
+            rep['UserId'] = instance.student.id
+        else:
+            rep['student']= None
+            rep['UserId'] = None
+        return rep

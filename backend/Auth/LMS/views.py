@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
-from LMS.models import Book, Genre, Author
-from LMS.serializers import BookSerializer, GenreSerializer, AuthorSerializer, AdminBookSerializer
+from LMS.models import Book, Genre, Author, Order
+from LMS.serializers import BookSerializer, GenreSerializer, AuthorSerializer, AdminBookSerializer, OrderSerializer
 from django.db.models import Q
 
 
@@ -203,3 +203,12 @@ def issued_book_list_display(request):
         serializer = AdminBookSerializer(books, many=True)
         return Response(serializer.data)
     return Response(data={"data":"Access Forbidden"}, status=HTTP_403_FORBIDDEN)
+
+
+@api_view(['GET'])
+@permission_classes((AllowAny,))
+def orders_list(request):
+    orders = Order.objects.all()
+    serializer = OrderSerializer(orders,many =True)
+    return Response(serializer.data)
+
