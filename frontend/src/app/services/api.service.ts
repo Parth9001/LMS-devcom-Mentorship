@@ -138,9 +138,12 @@ return this.http.post(this.baseUrl + 'login/', params,
   }
 
   insertBook(book: any) {
-    return this.http.post(this.baseUrl + 'InsertBook', book, {
-      responseType: 'text',
-    });
+    let headers = {
+      Authorization: 'Token 589b51f220fe4690d484d519ff12b1c3cd6c2762'
+    }
+    return this.http.post(this.baseURL2 + 'books/', book, 
+    {headers : headers} 
+    );
   }
 
   deleteBook(slug : string) {
@@ -151,7 +154,7 @@ return this.http.post(this.baseUrl + 'login/', params,
 
   insertGenre(genre: string,) {
     return this.http.post(
-      this.baseURL2 + 'InsertGenre',
+      this.baseURL2 + 'genres/',
       { genre : genre},
       { responseType: 'text' }
     );

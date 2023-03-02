@@ -13,12 +13,14 @@ export class ManageGenreComponent {
 
   constructor(private fb: FormBuilder, private api: ApiService) {
     this.genreForm = this.fb.group({
-      genre: this.fb.control('')
+      genre: this.fb.control(''),
+      desc: this.fb.control(''),
     });
   }
 
   addNewGenre() {
     let g = this.Genre.value;
+    let d = this.Description.value
 
     this.api.insertGenre(g).subscribe({
       next: (res: any) => {
@@ -34,7 +36,7 @@ export class ManageGenreComponent {
   get Genre(): FormControl {
     return this.genreForm.get('genre') as FormControl;
   }
-  // get Subcategory(): FormControl {
-  //   return this.categoryForm.get('subcategory') as FormControl;
-  // }
+  get Description(): FormControl {
+    return this.genreForm.get('desc') as FormControl;
+  }
 }

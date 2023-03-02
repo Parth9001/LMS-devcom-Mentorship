@@ -14,7 +14,7 @@ export class LibraryComponent implements OnInit {
     'id',
     'title',
     'author',
-    'price',
+    //'price',
     'available',
     'order',
   ];

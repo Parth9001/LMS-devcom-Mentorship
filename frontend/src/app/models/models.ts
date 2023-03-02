@@ -25,7 +25,7 @@ export interface Book {
   id: number;
   title: string;
   genre: string;
-  price: number;
+ // price: number;
   available: boolean;
   count?: number;
   author: string;
@@ -48,5 +48,7 @@ export interface Order {
 
 export interface Genre {
   name: string;
+  id: number;
+  desc: string;
   children?: Genre[];
 }
