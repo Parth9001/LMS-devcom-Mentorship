@@ -12,7 +12,7 @@ export class OrderComponent implements OnInit {
   columns: string[] = ['id', 'name', 'bookid', 'book', 'date', 'status'];
 
   constructor(private api: ApiService) {}
-
+//The data of orders of a user is pulled here using a Get command
   ngOnInit(): void {
     let userid = this.api.getTokenUserInfo()?.id ?? 0;
     this.api.getOrdersOfUser(userid).subscribe({

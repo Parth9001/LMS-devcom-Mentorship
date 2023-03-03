@@ -1,3 +1,4 @@
+//All the APIs from the backend are imported here and the URLs for all the components is defined here
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
@@ -14,16 +15,14 @@ export class ApiService {
   baseURL2 = "http://127.0.0.1:8000/api/"
   constructor(private http: HttpClient, private jwt: JwtHelperService) {}
 
+  //API to register
   createAccount(user: User) {
     return this.http.post(this.baseUrl + 'signup/', user, {
       responseType: 'text',
     });
   }
-
+//API to login
   login(login: any) {
-    // let params = new HttpParams()
-    // .append("email", login.email)
-    // .append("password", login.password);
     let params = {
       email:login.email,
       password:login.password
@@ -31,17 +30,10 @@ export class ApiService {
     let headers = new HttpHeaders();
 headers= headers.append('content-type', 'application/json');
 
-return this.http.post(this.baseUrl + 'login/', params,
-      
-      {headers : headers}
+return this.http.get(this.baseUrl + 'login/', {params: params}
       )
-    //   function f(param) {
-    //     console.log(param);
-    // }
-    
-    // alert( String(f) );
  }
-
+//The functions that are used in many components and also in this file are defined here
   saveToken(token: string) {
     localStorage.setItem('access_token', token);
   }
@@ -49,12 +41,15 @@ return this.http.post(this.baseUrl + 'login/', params,
   isLoggedIn(): boolean {
     return !!localStorage.getItem('access_token');
   }
-
+  getToken() {
+    let token = localStorage.getItem('access_token');
+    console.log(token);
+    return token;
+  }
   deleteToken() {
     localStorage.removeItem('access_token');
     location.reload();
   }
-
   getTokenUserInfo(): User | null {
     if (!this.isLoggedIn()) return null;
     let token = this.jwt.decodeToken();
@@ -62,13 +57,8 @@ return this.http.post(this.baseUrl + 'login/', params,
       id: token.id,
       name: token.name,
       email: token.email,
-      mobile: token.mobile,
       password: '',
-      blocked: token.blocked.toLowerCase() === 'true',
-      active: token.active.toLowerCase() === 'true',
-      createdOn: token.createdAt,
-      fine: 0,
-      userType: token.userType === 'USER' ? UserType.USER : UserType.ADMIN,
+      user_type: token.user_type === 'USER' ? UserType.STUDENT : UserType.ADMIN,
     };
     return user;
   }
@@ -102,7 +92,7 @@ return this.http.post(this.baseUrl + 'login/', params,
       map((users) =>
         users.map((user) => {
           let temp: User = user;
-          temp.userType = user.userType == 0 ? UserType.USER : UserType.ADMIN;
+          temp.user_type = user.user_type == 0 ? UserType.STUDENT : UserType.ADMIN;
           return temp;
         })
       )

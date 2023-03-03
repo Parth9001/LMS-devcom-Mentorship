@@ -14,7 +14,6 @@ export class LibraryComponent implements OnInit {
     'id',
     'title',
     'author',
-    //'price',
     'available',
     'order',
   ];
@@ -22,6 +21,7 @@ export class LibraryComponent implements OnInit {
   constructor(private api: ApiService) {}
 
   ngOnInit(): void {
+//This is used to get the data of books from backend. Initially array of Book is defined as empty and then using a for loop, the array is filled.
     this.api.getAllBooks().subscribe({
       next: (res: Book[]) => {
         this.availableBooks = [];
@@ -32,15 +32,14 @@ export class LibraryComponent implements OnInit {
       error: (err: any) => console.log(err),
     });
   }
-
+//This function uses the data from backend and displays it on the frontend
   updateList() {
     this.booksToDisplay = [];
     for (let book of this.availableBooks) {
       let exist = false;
       for (let genreBooks of this.booksToDisplay) {
         if (
-          book.genre === genreBooks.genre //&&
-          // book.subgenre === genreBooks.subgenre
+          book.genre === genreBooks.genre 
         )
           exist = true;
       }
@@ -48,25 +47,23 @@ export class LibraryComponent implements OnInit {
       if (exist) {
         for (let genreBooks of this.booksToDisplay) {
           if (
-            book.genre === genreBooks.genre //&&
-            // book.subgenre === genreBooks.subgenre
+            book.genre === genreBooks.genre 
           )
             genreBooks.books.push(book);
         }
       } else {
         this.booksToDisplay.push({
           genre: book.genre,
-          // subgenre: book.subgenre,
           books: [book],
         });
       }
     }
   }
-
+//This function is used to count the number of books.
   getBookCount() {
     return this.booksToDisplay.reduce((pv, cv) => cv.books.length + pv, 0);
   }
-
+//This function is used to search a book using it's title or author name.
   search(value: string) {
     value = value.toLowerCase();
     this.updateList();
@@ -81,7 +78,7 @@ export class LibraryComponent implements OnInit {
       });
     }
   }
-
+//This function enables a user to order a book.
   orderBook(book: Book) {
     let userid = this.api.getTokenUserInfo()?.id ?? 0;
     this.api.orderBook(userid, book.id).subscribe({
@@ -92,10 +89,5 @@ export class LibraryComponent implements OnInit {
       },
       error: (err: any) => console.log(err),
     });
-  }
-
-  isBlocked() {
-    let blocked = this.api.getTokenUserInfo()?.blocked ?? true;
-    return blocked;
   }
 }

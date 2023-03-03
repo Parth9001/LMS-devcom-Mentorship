@@ -21,7 +21,7 @@ export class OrdersComponent implements OnInit {
   ];
 
   constructor(private api: ApiService) {}
-
+//The data of all the orders is being pulled using this function
   ngOnInit(): void {
     this.api.getAllOrders().subscribe({
       next: (res: Order[]) => {
@@ -31,7 +31,7 @@ export class OrdersComponent implements OnInit {
       error: (err: any) => console.log(err),
     });
   }
-
+//Function used to filter books according to their Return Status
   filter(value: string) {
     if (value === 'all') {
       this.ordersToDisplay = this.listOfOrders.filter((value) => value);

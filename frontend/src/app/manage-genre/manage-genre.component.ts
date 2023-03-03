@@ -17,7 +17,7 @@ export class ManageGenreComponent {
       desc: this.fb.control(''),
     });
   }
-
+//Function to add Genre using GenreName and Description of Genre
   addNewGenre() {
     let g = this.Genre.value;
     let d = this.Description.value
