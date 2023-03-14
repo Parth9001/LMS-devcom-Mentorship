@@ -20,9 +20,12 @@ from rest_framework.response import Response
 @api_view(["POST", "GET"])
 @permission_classes((AllowAny,))
 def login(request):
-    
-    email = request.data.get("email")
-    password = request.data.get("password")
+    if request.method == "GET":
+        email = request.data.get("email")
+        password = request.data.get("password")
+    elif request.method == "POST":
+        email = request.data['email']
+        password = request.data['password']
     if email is None or password is None:
         return Response({'error': 'Please provide both username and password'},
                         status=HTTP_400_BAD_REQUEST)

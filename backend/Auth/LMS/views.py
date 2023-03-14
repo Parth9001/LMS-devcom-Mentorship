@@ -222,10 +222,30 @@ def trending_books(request):
     orderss = [
         {'book_id': 123, 'order_date': datetime.datetime(2022, 1, 1), 'title':'Life of Pi'}
     ]
+
+    ids = {}
     for orders in ordered_books:
         book_id = orders.book.id
         title = str(orders.book)
         order_date = orders.order_date
+        try:
+            ids[book_id] = {
+                "title" : title,
+                "count" : ids[book_id]["count"]+1,
+                "order_date" : order_date
+            }
+        except KeyError:
+            ids[book_id] = {
+                "title" : title,
+                "count" : 1,
+                "order_date" : order_date
+            }
+        
         orderss.append({'book_id': book_id,'title':title, 'order_date':order_date})
-    return Response(data=orderss)
+
+    # ids.items.
+    trending_books = []
+    # for ids in id:
+
+    return Response(data=ids)
     

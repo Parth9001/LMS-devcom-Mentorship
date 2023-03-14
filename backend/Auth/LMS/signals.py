@@ -62,14 +62,25 @@ def create_order(sender, instance, **kwargs):
     except Book.DoesNotExist:
         pass
     
-    if old_instance.issued_to != instance.issued_to and instance.issued_to is not None:
+    if old_instance.issued_to is None and instance.issued_to is not None:
         status = "Ordered"
         book = instance
         order_date = datetime.datetime.now()
         student = Student.objects.get(id= instance.issued_to.id)
         order = Order(status=status, book=book, student=student, order_date=order_date)
         return order.save()
-    
+    # elif old_instance.issued_t
+
+    elif old_instance.issued_to != instance.issued_to and instance.issued_to:
+        status = "Returned"
+        student = Student.objects.get(id= instance.issued_to.id)
+        return_date = datetime.datetime.now()
+        order = Order.objects.get(book = instance.id, status="Ordered")
+        order.status = status
+        order.return_date = return_date
+        neworder = Order(status = "Ordered", book = instance, student=student, order_date = return_date)
+        return order.save(), neworder.save()
+
     elif old_instance.issued_to != instance.issued_to and instance.issued_to is None:
         status = "Returned"
         return_date = datetime.datetime.now()
